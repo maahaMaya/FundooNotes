@@ -6,9 +6,11 @@
 
   <ItemGroup>
     <Folder Include="Interface\" />
-    <Folder Include="Context\" />
-    <Folder Include="Entity\" />
     <Folder Include="Service\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.0" />
   </ItemGroup>
 
   <ItemGroup>
