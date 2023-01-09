@@ -1,13 +1,14 @@
 ﻿using CommonLayer.Model;
 using RepositoryLayer.Context;
 using RepositoryLayer.Entity;
+using RepositoryLayer.Interface;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace RepositoryLayer.Service
 {
-    public class UserRl
+    public class UserRl : IUserRl
     {
         FundooContext fundooContext;
 
