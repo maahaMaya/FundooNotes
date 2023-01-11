@@ -4,6 +4,7 @@ using RepositoryLayer.Entity;
 using RepositoryLayer.Interface;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace RepositoryLayer.Service
@@ -41,6 +42,27 @@ namespace RepositoryLayer.Service
             {
 
                 throw ex;
+            }
+        }
+
+        public string Login(UserLogin userLogin)
+        {
+            try
+            {
+                var result = fundooContext.UserDetails.Where(x => x.Email == userLogin.Email && x.Password == userLogin.Password).FirstOrDefault();
+                if(result != null)
+                {
+                    return "Loging Sucessful";
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
             }
         }
     }
