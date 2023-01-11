@@ -1,10 +1,14 @@
 ﻿using CommonLayer.Model;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 using RepositoryLayer.Context;
 using RepositoryLayer.Entity;
 using RepositoryLayer.Interface;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 
 namespace RepositoryLayer.Service
@@ -13,9 +17,15 @@ namespace RepositoryLayer.Service
     {
         FundooContext fundooContext;
 
-        public UserRl(FundooContext fundooContext)
+        private readonly string _secret;  
+        private readonly string _expDate;
+
+        public UserRl(FundooContext fundooContext, IConfiguration config)
         {
             this.fundooContext = fundooContext;
+            _secret = config.GetSection("JwtConfig").GetSection("secret").Value;
+            _expDate = config.GetSection("JwtConfig").GetSection("expirationInMinutes").Value;
+
         }
 
         public UserEntity RegisterUser(UserRegistration userRegistration)
@@ -52,7 +62,8 @@ namespace RepositoryLayer.Service
                 var result = fundooContext.UserDetails.Where(x => x.Email == userLogin.Email && x.Password == userLogin.Password).FirstOrDefault();
                 if(result != null)
                 {
-                    return "Loging Sucessful";
+                    var token = GenerateSecurityToken(result.Email, result.UserId);
+                    return token;
                 }
                 else
                 {
@@ -64,6 +75,27 @@ namespace RepositoryLayer.Service
 
                 throw;
             }
+        }
+
+        public string GenerateSecurityToken(string email, long UserId)
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.ASCII.GetBytes(_secret);
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(new[]
+                {
+                    new Claim(ClaimTypes.Email, email),
+                    new Claim("UserId", UserId.ToString())
+                }),
+                Expires = DateTime.UtcNow.AddMinutes(double.Parse(_expDate)),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+            };
+
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+
+            return tokenHandler.WriteToken(token);
+
         }
     }
 }

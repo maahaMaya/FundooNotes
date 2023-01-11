@@ -48,7 +48,7 @@ namespace FundooNoteApp.Controllers
             try
             {
                 var result = iUserBl.Login(userLogin);
-                if (result == "Loging Sucessful")
+                if (result != null)
                 {
                     return this.Ok(new { success = true, message = "Login Successfull", data = result });
                 }
