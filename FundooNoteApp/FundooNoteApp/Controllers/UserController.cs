@@ -70,11 +70,11 @@ namespace FundooNoteApp.Controllers
 
         [HttpPost]
         [Route("ForgotPassword")]
-        public IActionResult ForgotPassword(string email)
+        public IActionResult ForgotPassword(ForgotPasswordModel forgotPasswordModel)
         {
             try
             {
-                var result = iUserBl.ForgotPassword(email);
+                var result = iUserBl.ForgotPassword(forgotPasswordModel);
                 if (result != null)
                 {
                     return this.Ok(new { success = true, message = "Mail Sent Successsfully", data = result });
@@ -95,12 +95,12 @@ namespace FundooNoteApp.Controllers
         [HttpPut]
 
         [Route("ResetPassword")]
-        public IActionResult PasswordReset(string new_password, string confirm_password)
+        public IActionResult PasswordReset(PasswordResetModel passwordResetModel)
         {
             try
             {
                 var email = User.FindFirst(ClaimTypes.Email).Value.ToString();
-                var result = iUserBl.ResetPassword(email, new_password, confirm_password);
+                var result = iUserBl.ResetPassword(email, passwordResetModel);
                 if (result == true)
                 {
                     return this.Ok(new { success = true, message = "Password Reset Successfull" });

@@ -97,11 +97,11 @@ namespace RepositoryLayer.Service
             return tokenHandler.WriteToken(token);
         }
 
-        public string ForgotPassword(string email)
+        public string ForgotPassword(ForgotPasswordModel forgotPasswordModel)
         {
             try
             {
-                var result = fundooContext.UserDetails.Where(x => x.Email == email).FirstOrDefault();
+                var result = fundooContext.UserDetails.Where(x => x.Email == forgotPasswordModel.Email).FirstOrDefault();
                 if (result != null)
                 {
                     var token = GenerateSecurityToken(result.Email, result.UserId);
@@ -121,14 +121,14 @@ namespace RepositoryLayer.Service
             }
         }
 
-        public bool ResetPassword(string email, string new_password, string confirm_password)
+        public bool ResetPassword(string email, PasswordResetModel passwordResetModel)
         {
             try
             {
-                if (new_password == confirm_password)
+                if (passwordResetModel.NewPassword == passwordResetModel.ConfirmPassword)
                 {
                     var result = fundooContext.UserDetails.Where(x => x.Email == email).FirstOrDefault();
-                    result.Password = new_password;
+                    result.Password = passwordResetModel.NewPassword;
                     fundooContext.SaveChanges();
                     return true;
                 }

@@ -41,11 +41,11 @@ namespace BusinessLayer.Service
             }
         }
 
-        public string ForgotPassword(string email)
+        public string ForgotPassword(ForgotPasswordModel forgotPasswordModel)
         {
             try
             {
-                return iUserRl.ForgotPassword(email);
+                return iUserRl.ForgotPassword(forgotPasswordModel);
             }
             catch (Exception)
             {
@@ -54,11 +54,11 @@ namespace BusinessLayer.Service
             }
         }
 
-        public bool ResetPassword(string email, string new_password, string confirm_password)
+        public bool ResetPassword(string email, PasswordResetModel passwordResetModel)
         {
             try
             {
-                return iUserRl.ResetPassword(email, new_password, confirm_password);
+                return iUserRl.ResetPassword(email, passwordResetModel);
             }
             catch (Exception)
             {
