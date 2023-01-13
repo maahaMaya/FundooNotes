@@ -95,7 +95,6 @@ namespace RepositoryLayer.Service
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
             return tokenHandler.WriteToken(token);
-
         }
 
         public string ForgotPassword(string email)
@@ -118,6 +117,28 @@ namespace RepositoryLayer.Service
             catch (Exception)
             {
 
+                throw;
+            }
+        }
+
+        public bool ResetPassword(string email, string new_password, string confirm_password)
+        {
+            try
+            {
+                if (new_password == confirm_password)
+                {
+                    var result = fundooContext.UserDetails.Where(x => x.Email == email).FirstOrDefault();
+                    result.Password = new_password;
+                    fundooContext.SaveChanges();
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception)
+            {
                 throw;
             }
         }

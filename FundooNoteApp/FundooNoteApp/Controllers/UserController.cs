@@ -1,6 +1,9 @@
 ﻿using BusinessLayer.Interface;
 using CommonLayer.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
+using System;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -84,6 +87,31 @@ namespace FundooNoteApp.Controllers
             catch (System.Exception)
             {
 
+                throw;
+            }
+        }
+
+        [Authorize]
+        [HttpPut]
+
+        [Route("ResetPassword")]
+        public IActionResult PasswordReset(string new_password, string confirm_password)
+        {
+            try
+            {
+                var email = User.FindFirst(ClaimTypes.Email).Value.ToString();
+                var result = iUserBl.ResetPassword(email, new_password, confirm_password);
+                if (result == true)
+                {
+                    return this.Ok(new { success = true, message = "Password Reset Successfull" });
+                }
+                else
+                {
+                    return this.NotFound(new { success = false, message = "Password Reset Failed" });
+                }
+            }
+            catch (Exception)
+            {
                 throw;
             }
         }
