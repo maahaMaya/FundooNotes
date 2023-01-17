@@ -3,12 +3,28 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace RepositoryLayer.Migrations
 {
-    public partial class secondMigration : Migration
+    public partial class FirstMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Note",
+                name: "UserDetails",
+                columns: table => new
+                {
+                    UserId = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FirstName = table.Column<string>(nullable: true),
+                    LastName = table.Column<string>(nullable: true),
+                    Email = table.Column<string>(nullable: true),
+                    Password = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserDetails", x => x.UserId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "NoteDetails",
                 columns: table => new
                 {
                     NoteID = table.Column<long>(nullable: false)
@@ -27,9 +43,9 @@ namespace RepositoryLayer.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Note", x => x.NoteID);
+                    table.PrimaryKey("PK_NoteDetails", x => x.NoteID);
                     table.ForeignKey(
-                        name: "FK_Note_UserDetails_UserId",
+                        name: "FK_NoteDetails_UserDetails_UserId",
                         column: x => x.UserId,
                         principalTable: "UserDetails",
                         principalColumn: "UserId",
@@ -37,15 +53,18 @@ namespace RepositoryLayer.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Note_UserId",
-                table: "Note",
+                name: "IX_NoteDetails_UserId",
+                table: "NoteDetails",
                 column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Note");
+                name: "NoteDetails");
+
+            migrationBuilder.DropTable(
+                name: "UserDetails");
         }
     }
 }

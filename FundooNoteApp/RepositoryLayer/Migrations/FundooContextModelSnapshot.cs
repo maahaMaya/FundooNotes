@@ -63,7 +63,7 @@ namespace RepositoryLayer.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Note");
+                    b.ToTable("NoteDetails");
                 });
 
             modelBuilder.Entity("RepositoryLayer.Entity.UserEntity", b =>
