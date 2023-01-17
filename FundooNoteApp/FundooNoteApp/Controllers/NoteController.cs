@@ -92,9 +92,10 @@ namespace FundooNoteApp.Controllers
             }
         }
 
+        [Authorize]
         [HttpPut]
         [Route("MoveToTrash")]
-        public IActionResult MoveToTrash(TrashNote trashNote)
+        public IActionResult MoveToTrash(PinTrashArchieve trashNote)
         {
             try
             {
@@ -108,6 +109,56 @@ namespace FundooNoteApp.Controllers
                 else
                 {
                     return this.BadRequest(new { success = false, message = "Trash is unsuccessfully" });
+                }
+            }
+            catch (System.Exception)
+            {
+                throw;
+            }
+        }
+
+        [Authorize]
+        [HttpPut]
+        [Route("Pining")]
+        public IActionResult Pining(PinTrashArchieve pin)
+        {
+            try
+            {
+                long UserId = Convert.ToInt32(User.Claims.FirstOrDefault(e => e.Type == "UserId").Value);
+                var result = iNoteBl.PinNote(pin, UserId);
+                string message = (result == 1) ? "Move to pining" : "Move pining to database";
+                if (result > 0)
+                {
+                    return this.Ok(new { success = true, message = message, data = result });
+                }
+                else
+                {
+                    return this.BadRequest(new { success = false, message = "pining is unsuccessfully" });
+                }
+            }
+            catch (System.Exception)
+            {
+                throw;
+            }
+        }
+
+        [Authorize]
+        [HttpPut]
+        [Route("Archieve")]
+        public IActionResult Archieve(PinTrashArchieve archieve)
+        {
+            try
+            {
+                long UserId = Convert.ToInt32(User.Claims.FirstOrDefault(e => e.Type == "UserId").Value);
+                var result = iNoteBl.ArchieveNote(archieve, UserId);
+                string message = (result == 1) ? "Move to archieve" : "Move archieve to database";
+                if (result > 0)
+                {
+                    return this.Ok(new { success = true, message = message, data = result });
+                }
+                else
+                {
+                    return this.BadRequest(new { success = false, message = "archieve is unsuccessfully" });
                 }
             }
             catch (System.Exception)

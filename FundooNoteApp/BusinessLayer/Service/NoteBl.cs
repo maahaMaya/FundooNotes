@@ -27,18 +27,6 @@ namespace BusinessLayer.Service
             }
         }
 
-        public int MoveToTrash(TrashNote deleteNote, long UserId)
-        {
-            try
-            {
-                return iNoteRl.MoveToTrash(deleteNote, UserId);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
         public IEnumerable<NoteEntity> RetrieveNotes(RetriveNote retriveNote, long noteId)
         {
             try
@@ -61,6 +49,41 @@ namespace BusinessLayer.Service
             catch (Exception)
             {
 
+                throw;
+            }
+        }
+
+        public int MoveToTrash(PinTrashArchieve trash, long UserId)
+        {
+            try
+            {
+                return iNoteRl.MoveToTrash(trash, UserId);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public int PinNote(PinTrashArchieve pin, long UserId)
+        {
+            try
+            {
+                return iNoteRl.PinNote(pin, UserId);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        public int ArchieveNote(PinTrashArchieve archieve, long UserId)
+        {
+            try
+            {
+                return iNoteRl.ArchieveNote(archieve, UserId);
+            }
+            catch (Exception)
+            {
                 throw;
             }
         }

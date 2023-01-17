@@ -11,6 +11,8 @@ namespace RepositoryLayer.Interface
         public NoteEntity CreateNewNote(NewNote newNote, long UserId);
         public IEnumerable<NoteEntity> RetrieveNotes(RetriveNote retriveNote, long userId);
         public IEnumerable<NoteEntity> RetrieveAllNotes(long userId);
-        public int MoveToTrash(TrashNote deleteNote, long UserId);
+        public int MoveToTrash(PinTrashArchieve trash, long UserId);
+        public int ArchieveNote(PinTrashArchieve archieve, long UserId);
+        public int PinNote(PinTrashArchieve pin, long UserId);
     }
 }
