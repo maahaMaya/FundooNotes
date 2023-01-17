@@ -55,18 +55,17 @@ namespace FundooNoteApp.Controllers
                 var result = iNoteBl.RetrieveNotes(retriveNote, userId);
                 if (result != null)
                 {
-                    return Ok(new { success = true, message = "Retrieving notes successful", data = result });
+                    return Ok(new { success = true, message = "Retrieving note successful", data = result });
                 }
                 else
                 {
-                    return BadRequest(new
-                    {
-                        success = false,
-                        message = "Retrieving unsuccessful"
-                    });
+                    return BadRequest(new { success = false, message = "Retrieving unsuccessful" });
                 }
             }
-            catch (System.Exception) { throw; }
+            catch (System.Exception) 
+            {
+                throw; 
+            }
         }
 
         [Authorize]
@@ -77,22 +76,20 @@ namespace FundooNoteApp.Controllers
             try
             {
                 var userId = Convert.ToInt32(User.Claims.FirstOrDefault(e => e.Type == "UserId").Value);
-
                 var result = iNoteBl.RetrieveAllNotes(userId);
                 if (result != null)
                 {
-                    return Ok(new { success = true, message = "Retrieving notes successful", data = result });
+                    return Ok(new { success = true, message = "Retrieving all notes successful", data = result });
                 }
                 else
                 {
-                    return BadRequest(new
-                    {
-                        success = false,
-                        message = "Retrieving unsuccessful"
-                    });
+                    return BadRequest(new { success = false, message = "Retrieving unsuccessful" });
                 }
             }
-            catch (System.Exception) { throw; }
+            catch (System.Exception) 
+            { 
+                throw; 
+            }
         }
 
         [HttpPut]
@@ -103,13 +100,14 @@ namespace FundooNoteApp.Controllers
             {
                 long UserId = Convert.ToInt32(User.Claims.FirstOrDefault(e => e.Type == "UserId").Value);
                 var result = iNoteBl.MoveToTrash(trashNote, UserId);
-                if (result == true)
+                string message = (result == 1) ? "Move to trash" : "Move trash to database";
+                if (result > 0)
                 {
-                    return this.Ok(new { success = true, message = "Move to trash", data = result });
+                    return this.Ok(new { success = true, message = message, data = result });
                 }
                 else
                 {
-                    return this.BadRequest(new { success = false, message = "Not move to trash" });
+                    return this.BadRequest(new { success = false, message = "Trash is unsuccessfully" });
                 }
             }
             catch (System.Exception)

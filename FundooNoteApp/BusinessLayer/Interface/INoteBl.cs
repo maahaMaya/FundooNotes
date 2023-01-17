@@ -11,6 +11,6 @@ namespace BusinessLayer.Interface
         public NoteEntity CreateNewNote(NewNote newNote, long UserId);
         public IEnumerable<NoteEntity> RetrieveNotes(RetriveNote retriveNote, long userId);
         public IEnumerable<NoteEntity> RetrieveAllNotes(long userId);
-        public bool MoveToTrash(TrashNote deleteNote, long UserId);
+        public int MoveToTrash(TrashNote deleteNote, long UserId);
     }
 }

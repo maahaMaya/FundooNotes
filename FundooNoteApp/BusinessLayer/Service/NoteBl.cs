@@ -27,7 +27,7 @@ namespace BusinessLayer.Service
             }
         }
 
-        public bool MoveToTrash(TrashNote deleteNote, long UserId)
+        public int MoveToTrash(TrashNote deleteNote, long UserId)
         {
             try
             {

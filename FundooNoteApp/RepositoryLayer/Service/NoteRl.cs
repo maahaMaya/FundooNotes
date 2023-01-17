@@ -71,7 +71,7 @@ namespace RepositoryLayer.Service
             }
         }
 
-        public bool MoveToTrash(TrashNote deleteNote, long UserId)
+        public int MoveToTrash(TrashNote deleteNote, long UserId)
         {
             try
             {
@@ -79,12 +79,14 @@ namespace RepositoryLayer.Service
                 if (result != null)
                 {
                     result.IsTrash = !result.IsTrash;
+                    DateTime createNoteDateTime = DateTime.Now;
+                    result.ModifiedNoteTime = createNoteDateTime;
                     fundooContext.SaveChanges();
-                    return true;
+                    return Convert.ToInt16(true) + Convert.ToInt16(!result.IsTrash);
                 }
                 else
                 {
-                    return false;
+                    return Convert.ToInt16(false);
                 }
             }
             catch (Exception)
