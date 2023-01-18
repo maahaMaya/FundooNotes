@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System;
+using Microsoft.AspNetCore.Http;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -278,6 +279,31 @@ namespace FundooNoteApp.Controllers
                 else
                 {
                     return this.BadRequest(new { success = false, message = "color is not change" });
+                }
+            }
+            catch (System.Exception)
+            {
+                throw;
+            }
+        }
+
+        [Authorize]
+        [HttpPut]
+        [Route("IamgeUpload")]
+        public IActionResult ImageUploadOnCloudinary_UpdateImg(long NoteId, IFormFile image)
+        {
+            try
+            {
+                long UserId = Convert.ToInt32(User.Claims.FirstOrDefault(e => e.Type == "UserId").Value);
+                //noteBgImage.ImgFile = image;
+                var result = iNoteBl.ImageUploadOnCloudinary_UpdateImg(image, NoteId, UserId);
+                if (result == true)
+                {
+                    return this.Ok(new { success = true, message = "image successfully", data = result });
+                }
+                else
+                {
+                    return this.BadRequest(new { success = false, message = "image is unsuccessfully" });
                 }
             }
             catch (System.Exception)

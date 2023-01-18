@@ -1,4 +1,5 @@
 ﻿using CommonLayer.Model;
+using Microsoft.AspNetCore.Http;
 using RepositoryLayer.Entity;
 using System;
 using System.Collections.Generic;
@@ -19,5 +20,6 @@ namespace BusinessLayer.Interface
         public int ArchieveNote(PinTrashArchieve archieve, long UserId);
         public int PinNote(PinTrashArchieve pin, long UserId);
         public bool NoteColor(NoteColor noteColor, long UserId);
+        public bool ImageUploadOnCloudinary_UpdateImg(IFormFile image,long NoteId, long UserId);
     }
 }

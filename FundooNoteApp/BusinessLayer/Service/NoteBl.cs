@@ -1,5 +1,6 @@
 ﻿using BusinessLayer.Interface;
 using CommonLayer.Model;
+using Microsoft.AspNetCore.Http;
 using RepositoryLayer.Entity;
 using RepositoryLayer.Interface;
 using System;
@@ -139,6 +140,17 @@ namespace BusinessLayer.Service
             try
             {
                 return iNoteRl.NoteColor(noteColor, UserId);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        public bool ImageUploadOnCloudinary_UpdateImg(IFormFile image, long NoteId, long UserId)
+        {
+            try
+            {
+                return iNoteRl.ImageUploadOnCloudinary_UpdateImg(image, NoteId, UserId);
             }
             catch (Exception)
             {
