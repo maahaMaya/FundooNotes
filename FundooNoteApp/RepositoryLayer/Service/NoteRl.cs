@@ -266,11 +266,11 @@ namespace RepositoryLayer.Service
                 throw;
             }
         }
-        public bool ImageUploadOnCloudinary_UpdateImg(IFormFile image, long NoteId, long UserId)
+        public bool ImageUploadOnCloudinary_UpdateImg(NoteBgImage fileUpload, long UserId)
         {
             try
             {
-                var result = fundooContext.NoteDetails.Where(x => x.NoteID == NoteId && x.UserId == UserId).FirstOrDefault();
+                var result = fundooContext.NoteDetails.Where(x => x.NoteID == fileUpload.NoteID && x.UserId == UserId).FirstOrDefault();
                 if(result != null) 
                 {
                     Account account = new Account(
@@ -282,7 +282,8 @@ namespace RepositoryLayer.Service
                     Cloudinary cloudinary = new Cloudinary(account);
                     var uploadParams = new CloudinaryDotNet.Actions.ImageUploadParams()
                     {
-                        File = new FileDescription(image.FileName, image.OpenReadStream()),
+                        File = new FileDescription(fileUpload.ImgFile.FileName, fileUpload.ImgFile.OpenReadStream()),
+                       
                     };
 
                     var uploadResult = cloudinary.Upload(uploadParams);

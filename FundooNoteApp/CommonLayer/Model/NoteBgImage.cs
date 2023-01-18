@@ -8,6 +8,6 @@ namespace CommonLayer.Model
     public class NoteBgImage
     {
         public long NoteID { get; set; }
-        //public IFormFile ImgFile { get; set; }
+        public IFormFile ImgFile { get; set; }
     }
 }

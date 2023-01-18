@@ -21,6 +21,6 @@ namespace RepositoryLayer.Interface
         public int ArchieveNote(PinTrashArchieve archieve, long UserId);
         public int PinNote(PinTrashArchieve pin, long UserId);
         public bool NoteColor(NoteColor noteColor, long UserId);
-        public bool ImageUploadOnCloudinary_UpdateImg(IFormFile image,long NoteId, long UserId);
+        public bool ImageUploadOnCloudinary_UpdateImg(NoteBgImage fileUpload, long UserId);
     }
 }

@@ -290,13 +290,12 @@ namespace FundooNoteApp.Controllers
         [Authorize]
         [HttpPut]
         [Route("IamgeUpload")]
-        public IActionResult ImageUploadOnCloudinary_UpdateImg(long NoteId, IFormFile image)
+        public IActionResult ImageUploadOnCloudinary_UpdateImg([FromForm]NoteBgImage fileUpload)
         {
             try
             {
                 long UserId = Convert.ToInt32(User.Claims.FirstOrDefault(e => e.Type == "UserId").Value);
-                //noteBgImage.ImgFile = image;
-                var result = iNoteBl.ImageUploadOnCloudinary_UpdateImg(image, NoteId, UserId);
+                var result = iNoteBl.ImageUploadOnCloudinary_UpdateImg(fileUpload, UserId);
                 if (result == true)
                 {
                     return this.Ok(new { success = true, message = "image successfully", data = result });

@@ -146,11 +146,11 @@ namespace BusinessLayer.Service
                 throw;
             }
         }
-        public bool ImageUploadOnCloudinary_UpdateImg(IFormFile image, long NoteId, long UserId)
+        public bool ImageUploadOnCloudinary_UpdateImg(NoteBgImage fileUpload, long UserId)
         {
             try
             {
-                return iNoteRl.ImageUploadOnCloudinary_UpdateImg(image, NoteId, UserId);
+                return iNoteRl.ImageUploadOnCloudinary_UpdateImg(fileUpload, UserId);
             }
             catch (Exception)
             {
