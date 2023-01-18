@@ -20,7 +20,6 @@ namespace FundooNoteApp.Controllers
         }
 
         [HttpPost]
-
         [Route("UserRegistration")]
         public IActionResult Register(UserRegistration userRegistration)
         {
