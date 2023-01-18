@@ -17,7 +17,7 @@ namespace BusinessLayer.Service
             this.iCollaboratorRl = iCollaboratorRl;
         }
 
-        public CollabEntity AddCollaborator(AddCollaborator addCollaborator, long UserId)
+        public CollabEntity AddCollaborator(AddDeleteCollaborator addCollaborator, long UserId)
         {
             try
             {
@@ -34,6 +34,18 @@ namespace BusinessLayer.Service
             try
             {
                 return iCollaboratorRl.RetrieveAllCollaborate(NoteTableId, UserId);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public bool DeleteCollaborate(AddDeleteCollaborator deleteCollaborator, long UserId)
+        {
+            try
+            {
+                return iCollaboratorRl.DeleteCollaborate(deleteCollaborator, UserId);
             }
             catch (Exception)
             {

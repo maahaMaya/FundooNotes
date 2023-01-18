@@ -21,7 +21,7 @@ namespace FundooNoteApp.Controllers
 
         [HttpPost]
         [Route("AddNewCollaborator")]
-        public IActionResult AddCollaborator(AddCollaborator addCollaborator)
+        public IActionResult AddCollaborator(AddDeleteCollaborator addCollaborator)
         {
             try
             {
@@ -52,11 +52,33 @@ namespace FundooNoteApp.Controllers
                 var result = iCollaboratorBl.RetrieveAllCollaborate(NoteTableId, UserId);
                 if (result != null)
                 {
-                    return Ok(new { success = true, message = "Retrieving all notes successful", data = result });
+                    return Ok(new { success = true, message = "Retrieving all Collaborator successfully", data = result });
                 }
                 else
                 {
                     return BadRequest(new { success = false, message = "Retrieving unsuccessful" });
+                }
+            }
+            catch (System.Exception)
+            {
+                throw;
+            }
+        }
+        [HttpPut]
+        [Route("DeleteCollab")]
+        public IActionResult DeleteNote(AddDeleteCollaborator deleteCollaborator)
+        {
+            try
+            {
+                long UserId = Convert.ToInt32(User.Claims.FirstOrDefault(e => e.Type == "UserId").Value);
+                var result = iCollaboratorBl.DeleteCollaborate(deleteCollaborator, UserId);
+                if (result == true)
+                {
+                    return this.Ok(new { success = true, message = "delete is succcessfully", data = result });
+                }
+                else
+                {
+                    return this.BadRequest(new { success = false, message = "delete is unsuccessfully" });
                 }
             }
             catch (System.Exception)

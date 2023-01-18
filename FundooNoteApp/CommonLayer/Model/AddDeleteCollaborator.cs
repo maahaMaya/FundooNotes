@@ -4,7 +4,7 @@ using System.Text;
 
 namespace CommonLayer.Model
 {
-    public class AddCollaborator
+    public class AddDeleteCollaborator
     {
         public string Email { get; set; }
         public long NoteID { get; set; }

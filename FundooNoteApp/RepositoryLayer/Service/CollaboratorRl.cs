@@ -17,7 +17,7 @@ namespace RepositoryLayer.Service
                 this.fundooContext = fundooContext;
         }
 
-        public CollabEntity AddCollaborator(AddCollaborator addCollaborator, long UserId)
+        public CollabEntity AddCollaborator(AddDeleteCollaborator addCollaborator, long UserId)
         {
             try
             {
@@ -66,5 +66,27 @@ namespace RepositoryLayer.Service
             }
         }
 
+        public bool DeleteCollaborate(AddDeleteCollaborator deleteCollaborator, long UserId)
+        {
+            try
+            {
+                var resultNoteId = fundooContext.NoteDetails.Where(x => x.NoteID == deleteCollaborator.NoteID && x.UserId == UserId).FirstOrDefault();
+                var result = fundooContext.CollabDetails.Where(x => x.NoteID == resultNoteId.NoteID).FirstOrDefault();
+                if (result != null)
+                {
+                    fundooContext.CollabDetails.Remove(result);
+                    fundooContext.SaveChanges();
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }
