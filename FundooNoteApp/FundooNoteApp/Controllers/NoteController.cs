@@ -44,6 +44,30 @@ namespace FundooNoteApp.Controllers
         }
 
         [Authorize]
+        [HttpPut]
+        [Route("UpdateNote")]
+        public IActionResult UpdateNote(UpdateNote updateNotes)
+        {
+            try
+            {
+                long UserId = Convert.ToInt32(User.Claims.FirstOrDefault(e => e.Type == "UserId").Value);
+                var result = iNoteBl.UpdateNote(updateNotes, UserId);
+                if (result == true)
+                {
+                    return this.Ok(new { success = true, message = "Note is created Successfully", data = result });
+                }
+                else
+                {
+                    return this.BadRequest(new { success = false, message = "Note is created Unsuccessfully" });
+                }
+            }
+            catch (System.Exception)
+            {
+                throw;
+            }
+        }
+
+        [Authorize]
         [HttpGet]
         [Route("Retrieve")]
         public IActionResult retrieveNotes([FromQuery] RetriveNote retriveNote)
@@ -119,6 +143,78 @@ namespace FundooNoteApp.Controllers
 
         [Authorize]
         [HttpPut]
+        [Route("DeleteNote")]
+        public IActionResult DeleteNote(PinTrashArchieve delete)
+        {
+            try
+            {
+                long UserId = Convert.ToInt32(User.Claims.FirstOrDefault(e => e.Type == "UserId").Value);
+                var result = iNoteBl.DeleteNote(delete, UserId);
+                if (result == true)
+                {
+                    return this.Ok(new { success = true, message = "delete is succcessfully", data = result });
+                }
+                else
+                {
+                    return this.BadRequest(new { success = false, message = "delete is unsuccessfully" });
+                }
+            }
+            catch (System.Exception)
+            {
+                throw;
+            }
+        }
+        
+        [Authorize]
+        [HttpPut]
+        [Route("DeleteAllNote")]
+        public IActionResult DeleteAllTrashNote()
+        {
+            try
+            {
+                long UserId = Convert.ToInt32(User.Claims.FirstOrDefault(e => e.Type == "UserId").Value);
+                var result = iNoteBl.DeleteAllTrashNote(UserId);
+                if (result == true)
+                {
+                    return this.Ok(new { success = true, message = "Empty trash is succcessfully", data = result });
+                }
+                else
+                {
+                    return this.BadRequest(new { success = false, message = "Empty trash is unsuccessfully" });
+                }
+            }
+            catch (System.Exception)
+            {
+                throw;
+            }
+        }
+
+        [Authorize]
+        [HttpPut]
+        [Route("DeleteTrashDay30Note")]
+        public IActionResult Delete30DaysTrash()
+        {
+            try
+            {
+                long UserId = Convert.ToInt32(User.Claims.FirstOrDefault(e => e.Type == "UserId").Value);
+                var result = iNoteBl.Delete30DaysTrash(UserId);
+                if (result == true)
+                {
+                    return this.Ok(new { success = true, message = "Delete is succcessfully", data = result });
+                }
+                else
+                {
+                    return this.BadRequest(new { success = false, message = "Delete is unsuccessfully" });
+                }
+            }
+            catch (System.Exception)
+            {
+                throw;
+            }
+        }
+
+        [Authorize]
+        [HttpPut]
         [Route("Pining")]
         public IActionResult Pining(PinTrashArchieve pin)
         {
@@ -159,6 +255,29 @@ namespace FundooNoteApp.Controllers
                 else
                 {
                     return this.BadRequest(new { success = false, message = "archieve is unsuccessfully" });
+                }
+            }
+            catch (System.Exception)
+            {
+                throw;
+            }
+        }
+        [Authorize]
+        [HttpPut]
+        [Route("ChangeColor")]
+        public IActionResult NoteColor(NoteColor noteColor)
+        {
+            try
+            {
+                long UserId = Convert.ToInt32(User.Claims.FirstOrDefault(e => e.Type == "UserId").Value);
+                var result = iNoteBl.NoteColor(noteColor, UserId);
+                if (result == true)
+                {
+                    return this.Ok(new { success = true, message = "color is change successfully", data = result });
+                }
+                else
+                {
+                    return this.BadRequest(new { success = false, message = "color is not change" });
                 }
             }
             catch (System.Exception)
