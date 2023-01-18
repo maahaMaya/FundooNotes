@@ -120,7 +120,7 @@ namespace FundooNoteApp.Controllers
         [Authorize]
         [HttpPut]
         [Route("MoveToTrash")]
-        public IActionResult MoveToTrash(PinTrashArchieve trashNote)
+        public IActionResult MoveToTrash(PinTrashArchieveCollab trashNote)
         {
             try
             {
@@ -145,7 +145,7 @@ namespace FundooNoteApp.Controllers
         [Authorize]
         [HttpPut]
         [Route("DeleteNote")]
-        public IActionResult DeleteNote(PinTrashArchieve delete)
+        public IActionResult DeleteNote(PinTrashArchieveCollab delete)
         {
             try
             {
@@ -217,7 +217,7 @@ namespace FundooNoteApp.Controllers
         [Authorize]
         [HttpPut]
         [Route("Pining")]
-        public IActionResult Pining(PinTrashArchieve pin)
+        public IActionResult Pining(PinTrashArchieveCollab pin)
         {
             try
             {
@@ -242,7 +242,7 @@ namespace FundooNoteApp.Controllers
         [Authorize]
         [HttpPut]
         [Route("Archieve")]
-        public IActionResult Archieve(PinTrashArchieve archieve)
+        public IActionResult Archieve(PinTrashArchieveCollab archieve)
         {
             try
             {

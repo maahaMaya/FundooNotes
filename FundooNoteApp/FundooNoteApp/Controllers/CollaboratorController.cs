@@ -41,5 +41,28 @@ namespace FundooNoteApp.Controllers
                 throw;
             }
         }
+
+        [HttpGet]
+        [Route("RetrieveAllCollab")]
+        public IActionResult RetrieveAllCollab([FromQuery] PinTrashArchieveCollab NoteTableId)
+        {
+            try
+            {
+                var UserId = Convert.ToInt32(User.Claims.FirstOrDefault(e => e.Type == "UserId").Value);
+                var result = iCollaboratorBl.RetrieveAllCollaborate(NoteTableId, UserId);
+                if (result != null)
+                {
+                    return Ok(new { success = true, message = "Retrieving all notes successful", data = result });
+                }
+                else
+                {
+                    return BadRequest(new { success = false, message = "Retrieving unsuccessful" });
+                }
+            }
+            catch (System.Exception)
+            {
+                throw;
+            }
+        }
     }
 }

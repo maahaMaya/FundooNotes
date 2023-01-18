@@ -103,7 +103,7 @@ namespace RepositoryLayer.Service
             }
         }
 
-        public int MoveToTrash(PinTrashArchieve trash, long UserId)
+        public int MoveToTrash(PinTrashArchieveCollab trash, long UserId)
         {
             try
             {
@@ -126,7 +126,7 @@ namespace RepositoryLayer.Service
                 throw;
             }
         }
-        public bool DeleteNote(PinTrashArchieve delete, long UserId)
+        public bool DeleteNote(PinTrashArchieveCollab delete, long UserId)
         {
             try
             {
@@ -197,7 +197,7 @@ namespace RepositoryLayer.Service
                 throw;
             }
         }
-        public int PinNote(PinTrashArchieve pin, long UserId)
+        public int PinNote(PinTrashArchieveCollab pin, long UserId)
         {
             try
             {
@@ -220,7 +220,7 @@ namespace RepositoryLayer.Service
             }
         }
 
-        public int ArchieveNote(PinTrashArchieve archieve, long UserId)
+        public int ArchieveNote(PinTrashArchieveCollab archieve, long UserId)
         {
             try
             {

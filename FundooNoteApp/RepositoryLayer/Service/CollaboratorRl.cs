@@ -45,5 +45,26 @@ namespace RepositoryLayer.Service
             }
         }
 
+        public IEnumerable<CollabEntity> RetrieveAllCollaborate(PinTrashArchieveCollab NoteTableId, long UserId)
+        {
+            try
+            {
+                var resultNoteId = fundooContext.NoteDetails.Where(x => x.NoteID == NoteTableId.NoteID && x.UserId == UserId).FirstOrDefault();
+                var result = fundooContext.CollabDetails.Where(x => x.NoteID == resultNoteId.NoteID);
+                if (result != null)
+                {
+                    return result;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
     }
 }

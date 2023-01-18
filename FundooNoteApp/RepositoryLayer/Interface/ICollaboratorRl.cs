@@ -9,5 +9,6 @@ namespace RepositoryLayer.Interface
     public interface ICollaboratorRl
     {
         public CollabEntity AddCollaborator(AddCollaborator addCollaborator, long UserId);
+        public IEnumerable<CollabEntity> RetrieveAllCollaborate(PinTrashArchieveCollab NoteTableId, long UserId);
     }
 }

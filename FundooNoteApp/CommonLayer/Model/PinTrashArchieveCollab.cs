@@ -4,7 +4,7 @@ using System.Text;
 
 namespace CommonLayer.Model
 {
-    public class PinTrashArchieve
+    public class PinTrashArchieveCollab
     {
         public long NoteID { get; set; }
     }
