@@ -47,6 +47,8 @@ namespace FundooNoteApp
             services.AddTransient<INoteBl, NoteBl>();
             services.AddTransient<INoteRl, NoteRl>();
 
+            services.AddTransient<ILabelBl, LabelBl>();
+            services.AddTransient<ILabelRl, LabelRl>();
 
             services.AddTransient<ICollaboratorBl, CollaboratorBl>();
             services.AddTransient<ICollaboratorRl, CollaboratorRl>();
