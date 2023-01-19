@@ -23,6 +23,12 @@ namespace RepositoryLayer.Service
             this.fundooContext = fundooContext;
             this.iConfiguration = iConfiguration;
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="newNote"></param>
+        /// <param name="UserId"></param>
+        /// <returns> </returns>
         public NoteEntity CreateNewNote(NewNote newNote, long UserId)
         {
             try
