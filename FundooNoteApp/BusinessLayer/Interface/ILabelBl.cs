@@ -9,5 +9,6 @@ namespace BusinessLayer.Interface
     public interface ILabelBl
     {
         public LabelEntity CreateNewLabel(NewLabel newLabel, long UserId);
+        public bool DeleteLabel(DeleteLabel deleteLabel, long UserId);
     }
 }

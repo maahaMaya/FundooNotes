@@ -4,6 +4,7 @@ using RepositoryLayer.Entity;
 using RepositoryLayer.Interface;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace RepositoryLayer.Service
@@ -38,6 +39,28 @@ namespace RepositoryLayer.Service
             catch (Exception)
             {
 
+                throw;
+            }
+        }
+
+        public bool DeleteLabel(DeleteLabel deleteLabel, long UserId)
+        {
+            try
+            {
+                var result = fundooContext.LabelDetails.Where(x => x.LabelID == deleteLabel.LabelID && x.UserId == UserId).FirstOrDefault();
+                if(result != null)
+                {
+                    fundooContext.LabelDetails.Remove(result);
+                    fundooContext.SaveChanges();
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception)
+            {
                 throw;
             }
         }

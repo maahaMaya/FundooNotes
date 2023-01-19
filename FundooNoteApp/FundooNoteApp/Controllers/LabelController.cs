@@ -18,6 +18,7 @@ namespace FundooNoteApp.Controllers
         {
               this.iLabelBl = iLabelBl;
         }
+
         [HttpPost]
         [Route("CreateNewLabel")]
         public IActionResult CreateNewLabel(NewLabel newLabel)
@@ -33,6 +34,29 @@ namespace FundooNoteApp.Controllers
                 else
                 {
                     return this.BadRequest(new { success = false, message = "Label is not created" });
+                }
+            }
+            catch (System.Exception)
+            {
+                throw;
+            }
+        }
+
+        [HttpDelete]
+        [Route("DelteLabel")]
+        public IActionResult DeleteLabel(DeleteLabel deleteLabel)
+        {
+            try
+            {
+                long UserId = Convert.ToInt32(User.Claims.FirstOrDefault(e => e.Type == "UserId").Value);
+                var result = iLabelBl.DeleteLabel(deleteLabel, UserId);
+                if (result == true)
+                {
+                    return this.Ok(new { success = true, message = "Label is deleted Successfully", data = result });
+                }
+                else
+                {
+                    return this.BadRequest(new { success = false, message = "Label is not deleted" });
                 }
             }
             catch (System.Exception)
