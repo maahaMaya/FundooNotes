@@ -64,5 +64,39 @@ namespace RepositoryLayer.Service
                 throw;
             }
         }
+        public bool UpdateLabel(DeleteLabel deleteLabel, long UserId)
+        {
+            try
+            {
+                var result = fundooContext.LabelDetails.Where(x => x.LabelID == deleteLabel.LabelID && x.UserId == UserId).FirstOrDefault();
+                if (result != null)
+                {
+                    fundooContext.LabelDetails.Remove(result);
+                    fundooContext.SaveChanges();
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public IEnumerable<LabelEntity> RetrieveLabel(long UserId)
+        {
+            try
+            {
+                var result = fundooContext.LabelDetails.Where(x => x.UserId == UserId);
+                return result;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }
