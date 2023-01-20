@@ -100,5 +100,32 @@ namespace FundooNoteApp.Controllers
                 throw;
             }
         }
+
+        [HttpGet]
+        [Route("redis")]
+        public async Task<IActionResult> GetAllCollaboratorUsingRedisCache()
+        {
+            long UserId = Convert.ToInt32(User.Claims.FirstOrDefault(e => e.Type == "UserId").Value);
+            var cacheKey = "collaboratorList";
+            string serializedLabelList;
+            var collaboratorList = new List<LabelEntity>();
+            var redisCollaboratorList = await distributedCache.GetAsync(cacheKey);
+            if (redisCollaboratorList != null)
+            {
+                serializedLabelList = Encoding.UTF8.GetString(redisCollaboratorList);
+                collaboratorList = JsonConvert.DeserializeObject<List<LabelEntity>>(serializedLabelList);
+            }
+            else
+            {
+                collaboratorList = fundooContext.LabelDetails.ToList();
+                serializedLabelList = JsonConvert.SerializeObject(collaboratorList);
+                redisCollaboratorList = Encoding.UTF8.GetBytes(serializedLabelList);
+                var options = new DistributedCacheEntryOptions()
+                    .SetAbsoluteExpiration(DateTime.Now.AddMinutes(10))
+                    .SetSlidingExpiration(TimeSpan.FromMinutes(2));
+                await distributedCache.SetAsync(cacheKey, redisCollaboratorList, options);
+            }
+            return Ok(collaboratorList);
+        }
     }
 }

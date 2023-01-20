@@ -132,24 +132,24 @@ namespace FundooNoteApp.Controllers
             long UserId = Convert.ToInt32(User.Claims.FirstOrDefault(e => e.Type == "UserId").Value);
             var cacheKey = "labelList";
             string serializedLabelList;
-            var noteList = new List<LabelEntity>();
-            var redisCustomerList = await distributedCache.GetAsync(cacheKey);
-            if (redisCustomerList != null)
+            var labelList = new List<LabelEntity>();
+            var redislabelList = await distributedCache.GetAsync(cacheKey);
+            if (redislabelList != null)
             {
-                serializedLabelList = Encoding.UTF8.GetString(redisCustomerList);
-                noteList = JsonConvert.DeserializeObject<List<LabelEntity>>(serializedLabelList);
+                serializedLabelList = Encoding.UTF8.GetString(redislabelList);
+                labelList = JsonConvert.DeserializeObject<List<LabelEntity>>(serializedLabelList);
             }
             else
             {
-                noteList = fundooContext.LabelDetails.ToList();
-                serializedLabelList = JsonConvert.SerializeObject(noteList);
-                redisCustomerList = Encoding.UTF8.GetBytes(serializedLabelList);
+                labelList = fundooContext.LabelDetails.ToList();
+                serializedLabelList = JsonConvert.SerializeObject(labelList);
+                redislabelList = Encoding.UTF8.GetBytes(serializedLabelList);
                 var options = new DistributedCacheEntryOptions()
                     .SetAbsoluteExpiration(DateTime.Now.AddMinutes(10))
                     .SetSlidingExpiration(TimeSpan.FromMinutes(2));
-                await distributedCache.SetAsync(cacheKey, redisCustomerList, options);
+                await distributedCache.SetAsync(cacheKey, redislabelList, options);
             }
-            return Ok(noteList);
+            return Ok(labelList);
         }
     }
 }
