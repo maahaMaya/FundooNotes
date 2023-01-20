@@ -64,14 +64,15 @@ namespace RepositoryLayer.Service
                 throw;
             }
         }
-        public bool UpdateLabel(DeleteLabel deleteLabel, long UserId)
+        public bool UpdateLabel(UpdateLabel updateLabel, long UserId)
         {
             try
             {
-                var result = fundooContext.LabelDetails.Where(x => x.LabelID == deleteLabel.LabelID && x.UserId == UserId).FirstOrDefault();
+                var result = fundooContext.LabelDetails.Where(x => x.LabelID == updateLabel.LabelID && x.UserId == UserId).FirstOrDefault();
                 if (result != null)
                 {
-                    fundooContext.LabelDetails.Remove(result);
+                    result.LabelHeading = updateLabel.LabelHeading;
+                    fundooContext.LabelDetails.Update(result);
                     fundooContext.SaveChanges();
                     return true;
                 }

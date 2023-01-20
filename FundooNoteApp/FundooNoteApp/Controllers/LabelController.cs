@@ -67,7 +67,7 @@ namespace FundooNoteApp.Controllers
 
         [HttpGet]
         [Route("Retrieve")]
-        public IActionResult retrieveNotes()
+        public IActionResult RetrieveLabel()
         {
             try
             {
@@ -75,11 +75,34 @@ namespace FundooNoteApp.Controllers
                 var result = iLabelBl.RetrieveLabel(UserId);
                 if (result != null)
                 {
-                    return Ok(new { success = true, message = "Retrieving note successful", data = result });
+                    return Ok(new { success = true, message = "Retrieving label successful", data = result });
                 }
                 else
                 {
                     return BadRequest(new { success = false, message = "Retrieving unsuccessful" });
+                }
+            }
+            catch (System.Exception)
+            {
+                throw;
+            }
+        }
+
+        [HttpPut]
+        [Route("UpdateLabel")]
+        public IActionResult UpdateLabel(UpdateLabel updateLabel)
+        {
+            try
+            {
+                var UserId = Convert.ToInt32(User.Claims.FirstOrDefault(e => e.Type == "UserId").Value);
+                var result = iLabelBl.UpdateLabel(updateLabel, UserId);
+                if (result == true)
+                {
+                    return Ok(new { success = true, message = "update is successful", data = result });
+                }
+                else
+                {
+                    return BadRequest(new { success = false, message = "update is unsuccessful" });
                 }
             }
             catch (System.Exception)
