@@ -5,6 +5,14 @@ using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Caching.Distributed;
+using Newtonsoft.Json;
+using RepositoryLayer.Context;
+using RepositoryLayer.Entity;
+using System.Collections.Generic;
+using System.Text;
+using System.Threading.Tasks;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace FundooNoteApp.Controllers
 {
@@ -14,9 +22,15 @@ namespace FundooNoteApp.Controllers
     public class CollaboratorController : ControllerBase
     {
         ICollaboratorBl iCollaboratorBl;
-        public CollaboratorController(ICollaboratorBl iCollaboratorBl)
+        private readonly IMemoryCache memoryCache;
+        private readonly FundooContext fundooContext;
+        private readonly IDistributedCache distributedCache;
+        public CollaboratorController(ICollaboratorBl iCollaboratorBl, IMemoryCache memoryCache, FundooContext fundooContext, IDistributedCache distributedCache)
         {
             this.iCollaboratorBl = iCollaboratorBl;
+            this.memoryCache = memoryCache;
+            this.fundooContext = fundooContext;
+            this.distributedCache = distributedCache;
         }
 
         [HttpPost]
