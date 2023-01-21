@@ -25,7 +25,6 @@ namespace RepositoryLayer.Service
             this.fundooContext = fundooContext;
             _secret = config.GetSection("JwtConfig").GetSection("secret").Value;
             _expDate = config.GetSection("JwtConfig").GetSection("expirationInMinutes").Value;
-
         }
 
         public UserEntity RegisterUser(UserRegistration userRegistration)
