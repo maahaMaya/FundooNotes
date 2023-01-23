@@ -21,6 +21,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.DataProtection;
+using NLog;
+using System.IO;
+using FundooLoggerService;
 
 namespace FundooNoteApp
 {
@@ -52,6 +55,9 @@ namespace FundooNoteApp
 
             services.AddTransient<ICollaboratorBl, CollaboratorBl>();
             services.AddTransient<ICollaboratorRl, CollaboratorRl>();
+
+            LogManager.LoadConfiguration(string.Concat(Directory.GetCurrentDirectory(), "/FundooNlog.config"));
+            services.AddScoped<ILoggerManager, LoggerManager>();
 
             services.AddSwaggerGen();
             services.AddSwaggerGen(c =>
