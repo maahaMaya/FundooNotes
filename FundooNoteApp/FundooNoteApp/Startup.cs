@@ -24,6 +24,7 @@ using Microsoft.AspNetCore.DataProtection;
 using NLog;
 using System.IO;
 using FundooLoggerService;
+using CloudinaryDotNet;
 
 namespace FundooNoteApp
 {
@@ -56,7 +57,7 @@ namespace FundooNoteApp
             services.AddTransient<ICollaboratorBl, CollaboratorBl>();
             services.AddTransient<ICollaboratorRl, CollaboratorRl>();
 
-            LogManager.LoadConfiguration(string.Concat(Directory.GetCurrentDirectory(), "/FundooNlog.config"));
+            
             services.AddScoped<ILoggerManager, LoggerManager>();
 
             services.AddSwaggerGen();
@@ -128,6 +129,10 @@ namespace FundooNoteApp
             app.UseHttpsRedirection();
 
             app.UseRouting();
+            app.UseCors(x => x
+                           .AllowAnyOrigin()
+                           .AllowAnyMethod()
+                           .AllowAnyHeader());
 
             app.UseAuthentication();
 
