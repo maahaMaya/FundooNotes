@@ -36,6 +36,8 @@ namespace RepositoryLayer.Service
                 NoteEntity noteEntity = new NoteEntity();
                 noteEntity.Title = newNote.Title;
                 noteEntity.Note = newNote.Note;
+                noteEntity.IsArchive = newNote.IsArchive;
+                noteEntity.IsPin = newNote.IsPin;
                 DateTime createNoteDateTime = DateTime.Now;
                 noteEntity.CreatedNoteTime = createNoteDateTime;
                 noteEntity.ModifiedNoteTime = createNoteDateTime;
@@ -92,6 +94,34 @@ namespace RepositoryLayer.Service
             }
             catch (Exception)
             {
+                throw;
+            }
+        }
+
+        public IEnumerable<NoteEntity> RetrieveAllNotesWithoutArchieve(long UserId)
+        {
+            try
+            {
+                var result = fundooContext.NoteDetails.Where(x => x.UserId == UserId && x.IsArchive == false);
+                return result;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public IEnumerable<NoteEntity> RetrieveAllNotesWithArchieve(long UserId)
+        {
+            try
+            {
+                var result = fundooContext.NoteDetails.Where(x => x.UserId == UserId && x.IsArchive == true);
+                return result;
+            }
+            catch (Exception)
+            {
+
                 throw;
             }
         }
@@ -185,7 +215,7 @@ namespace RepositoryLayer.Service
                 if (result != null)
                 {
                     TimeSpan timeSpan = result.ModifiedNoteTime - DateTime.UtcNow;
-                    if(timeSpan.Days == 7)
+                    if(timeSpan.Days == 30)
                     {
                         fundooContext.NoteDetails.Remove(result);
                         fundooContext.SaveChanges();

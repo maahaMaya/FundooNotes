@@ -3,6 +3,7 @@ using CommonLayer.Model;
 using Microsoft.AspNetCore.Http;
 using RepositoryLayer.Entity;
 using RepositoryLayer.Interface;
+using RepositoryLayer.Service;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -45,6 +46,32 @@ namespace BusinessLayer.Service
             try
             {
                 return iNoteRl.RetrieveNotes(retriveNote, noteId);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public IEnumerable<NoteEntity> RetrieveAllNotesWithoutArchieve(long userId)
+        {
+            try
+            {
+                return iNoteRl.RetrieveAllNotesWithoutArchieve(userId);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public IEnumerable<NoteEntity> RetrieveAllNotesWithArchieve(long UserId)
+        {
+            try
+            {
+                return iNoteRl.RetrieveAllNotesWithArchieve(UserId);
             }
             catch (Exception)
             {

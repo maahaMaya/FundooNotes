@@ -13,6 +13,9 @@ namespace RepositoryLayer.Interface
         public NoteEntity CreateNewNote(NewNote newNote, long UserId);
         public bool UpdateNote(UpdateNote updateNote, long UserId);
         public IEnumerable<NoteEntity> RetrieveNotes(RetriveNote retriveNote, long userId);
+
+        public IEnumerable<NoteEntity> RetrieveAllNotesWithoutArchieve(long UserId);
+        public IEnumerable<NoteEntity> RetrieveAllNotesWithArchieve(long UserId);
         public IEnumerable<NoteEntity> RetrieveAllNotes(long userId);
         public int MoveToTrash(PinTrashArchieveCollab trash, long UserId);
         public bool DeleteNote(PinTrashArchieveCollab delete, long UserId);

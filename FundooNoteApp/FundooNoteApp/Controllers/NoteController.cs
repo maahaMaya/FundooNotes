@@ -107,6 +107,62 @@ namespace FundooNoteApp.Controllers
             }
         }
 
+        /// <summary>
+        /// Retrive all notes without archieve
+        /// </summary>
+        /// <returns></returns>
+        [Authorize]
+        [HttpGet]
+        [Route("RetrieveAllNotesWithoutArchieve")]
+        public IActionResult RetrieveAllWithoutArchieve()
+        {
+            try
+            {
+                var userId = Convert.ToInt32(User.Claims.FirstOrDefault(e => e.Type == "UserId").Value);
+                var result = iNoteBl.RetrieveAllNotesWithoutArchieve(userId);
+                if (result != null)
+                {
+                    return Ok(new { success = true, message = "Retrieving non-archived all notes successful", data = result });
+                }
+                else
+                {
+                    return BadRequest(new { success = false, message = "Retrieving unsuccessful" });
+                }
+            }
+            catch (System.Exception)
+            {
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Retrive all notes with archieve
+        /// </summary>
+        /// <returns></returns>
+        [Authorize]
+        [HttpGet]
+        [Route("RetrieveAllNotesWithArchieve")]
+        public IActionResult RetrieveAllWithArchieve()
+        {
+            try
+            {
+                var userId = Convert.ToInt32(User.Claims.FirstOrDefault(e => e.Type == "UserId").Value);
+                var result = iNoteBl.RetrieveAllNotesWithArchieve(userId);  
+                if (result != null)
+                {
+                    return Ok(new { success = true, message = "Retrieving archived all notes successful", data = result });
+                }
+                else
+                {
+                    return BadRequest(new { success = false, message = "Retrieving unsuccessful" });
+                }
+            }
+            catch (System.Exception)
+            {
+                throw;
+            }
+        }
+
         [Authorize]
         [HttpGet]
         [Route("RetrieveAll")]
@@ -156,8 +212,13 @@ namespace FundooNoteApp.Controllers
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="delete"></param>
+        /// <returns></returns>
         [Authorize]
-        [HttpPut]
+        [HttpDelete]
         [Route("DeleteNote")]
         public IActionResult DeleteNote(PinTrashArchieveCollab delete)
         {
@@ -180,8 +241,12 @@ namespace FundooNoteApp.Controllers
             }
         }
         
+        /// <summary>
+        /// delete all note in trash
+        /// </summary>
+        /// <returns></returns>
         [Authorize]
-        [HttpPut]
+        [HttpDelete]
         [Route("DeleteAllNote")]
         public IActionResult DeleteAllTrashNote()
         {
@@ -204,8 +269,12 @@ namespace FundooNoteApp.Controllers
             }
         }
 
+        /// <summary>
+        /// Delete note after 30 days if note is in the trash for 30days
+        /// </summary>
+        /// <returns></returns>
         [Authorize]
-        [HttpPut]
+        [HttpDelete]
         [Route("DeleteTrashDay30Note")]
         public IActionResult Delete30DaysTrash()
         {
@@ -277,6 +346,7 @@ namespace FundooNoteApp.Controllers
                 throw;
             }
         }
+
         [Authorize]
         [HttpPut]
         [Route("ChangeColor")]
