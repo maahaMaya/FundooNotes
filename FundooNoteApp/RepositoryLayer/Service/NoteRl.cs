@@ -64,7 +64,7 @@ namespace RepositoryLayer.Service
         {
             try
             {
-                var result = fundooContext.NoteDetails.Where(x => x.NoteID == updateNote.NoteID && x.UserId == UserId).FirstOrDefault();
+                var result = fundooContext.NoteDetails.Where(x => x.NoteID == updateNote.NoteID && x.UserId == UserId && x.IsTrash == false).FirstOrDefault();
                 if(result != null)
                 {
                     result.Title = updateNote.Title;
@@ -89,7 +89,7 @@ namespace RepositoryLayer.Service
         {
             try
             {
-                var result = fundooContext.NoteDetails.Where(x => x.NoteID == retriveNote.NoteID && x.UserId == UserId);
+                var result = fundooContext.NoteDetails.Where(x => x.NoteID == retriveNote.NoteID && x.UserId == UserId && x.IsTrash == false);
                 return result;
             }
             catch (Exception)
@@ -102,7 +102,7 @@ namespace RepositoryLayer.Service
         {
             try
             {
-                var result = fundooContext.NoteDetails.Where(x => x.UserId == UserId && x.IsArchive == false);
+                var result = fundooContext.NoteDetails.Where(x => x.UserId == UserId && x.IsArchive == false && x.IsTrash == false);
                 return result;
             }
             catch (Exception)
@@ -116,7 +116,7 @@ namespace RepositoryLayer.Service
         {
             try
             {
-                var result = fundooContext.NoteDetails.Where(x => x.UserId == UserId && x.IsArchive == true);
+                var result = fundooContext.NoteDetails.Where(x => x.UserId == UserId && x.IsArchive == true && x.IsTrash == false );
                 return result;
             }
             catch (Exception)
@@ -130,7 +130,7 @@ namespace RepositoryLayer.Service
         {
             try
             {
-                var result = fundooContext.NoteDetails.Where(x => x.UserId == UserId);
+                var result = fundooContext.NoteDetails.Where(x => x.UserId == UserId && x.IsTrash == false);
                 return result;
             }
             catch (Exception)
@@ -237,7 +237,7 @@ namespace RepositoryLayer.Service
         {
             try
             {
-                var result = fundooContext.NoteDetails.Where(x => x.NoteID == pin.NoteID && x.UserId == UserId).FirstOrDefault();
+                var result = fundooContext.NoteDetails.Where(x => x.NoteID == pin.NoteID && x.UserId == UserId && x.IsTrash == false).FirstOrDefault();
                 if (result != null)
                 {
                     result.IsPin = !result.IsPin;
@@ -260,7 +260,7 @@ namespace RepositoryLayer.Service
         {
             try
             {
-                var result = fundooContext.NoteDetails.Where(x => x.NoteID == archieve.NoteID && x.UserId == UserId).FirstOrDefault();
+                var result = fundooContext.NoteDetails.Where(x => x.NoteID == archieve.NoteID && x.UserId == UserId && x.IsTrash == false ).FirstOrDefault();
                 if (result != null)
                 {
                     result.IsArchive = !result.IsArchive;
@@ -283,7 +283,7 @@ namespace RepositoryLayer.Service
         {
             try
             {
-                var result = fundooContext.NoteDetails.Where(x => x.NoteID == noteColor.NoteID && x.UserId == UserId).FirstOrDefault();
+                var result = fundooContext.NoteDetails.Where(x => x.NoteID == noteColor.NoteID && x.UserId == UserId && x.IsTrash == false).FirstOrDefault();
                 if(result != null)
                 {
                     result.Color = noteColor.Color;
@@ -306,7 +306,7 @@ namespace RepositoryLayer.Service
         {
             try
             {
-                var result = fundooContext.NoteDetails.Where(x => x.NoteID == fileUpload.NoteID && x.UserId == UserId).FirstOrDefault();
+                var result = fundooContext.NoteDetails.Where(x => x.NoteID == fileUpload.NoteID && x.UserId == UserId && x.IsTrash == false).FirstOrDefault();
                 if(result != null) 
                 {
                     Account account = new Account(
