@@ -36,6 +36,7 @@ namespace RepositoryLayer.Service
                 NoteEntity noteEntity = new NoteEntity();
                 noteEntity.Title = newNote.Title;
                 noteEntity.Note = newNote.Note;
+                noteEntity.Color = newNote.Color;
                 noteEntity.IsArchive = newNote.IsArchive;
                 noteEntity.IsPin = newNote.IsPin;
                 DateTime createNoteDateTime = DateTime.Now;
