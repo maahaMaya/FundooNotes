@@ -96,7 +96,7 @@ namespace RepositoryLayer.Service
             return tokenHandler.WriteToken(token);
         }
 
-        public string ForgotPassword(ForgotPasswordModel forgotPasswordModel)
+        public bool ForgotPassword(ForgotPasswordModel forgotPasswordModel)
         {
             try
             {
@@ -106,11 +106,11 @@ namespace RepositoryLayer.Service
                     var token = GenerateSecurityToken(result.Email, result.UserId);
                     MsmqModel msmqModel = new MsmqModel();
                     msmqModel.sendData2Queue(token);
-                    return token;
+                    return true;
                 }
                 else
                 {
-                    return null;
+                    return false;
                 }
             }
             catch (Exception)

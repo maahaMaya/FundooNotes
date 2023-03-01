@@ -41,7 +41,7 @@ namespace BusinessLayer.Service
             }
         }
 
-        public string ForgotPassword(ForgotPasswordModel forgotPasswordModel)
+        public bool ForgotPassword(ForgotPasswordModel forgotPasswordModel)
         {
             try
             {

@@ -90,7 +90,7 @@ namespace RepositoryLayer.Service
         {
             try
             {
-                var result = fundooContext.NoteDetails.Where(x => x.NoteID == retriveNote.NoteID && x.UserId == UserId && x.IsTrash == false);
+                var result = fundooContext.NoteDetails.Where(x => x.NoteID == retriveNote.NoteID && x.UserId == UserId );
                 return result;
             }
             catch (Exception)
@@ -103,7 +103,7 @@ namespace RepositoryLayer.Service
         {
             try
             {
-                var result = fundooContext.NoteDetails.Where(x => x.UserId == UserId && x.IsArchive == false && x.IsTrash == false);
+                var result = fundooContext.NoteDetails.Where(x => x.UserId == UserId && x.IsArchive == false );
                 return result;
             }
             catch (Exception)
@@ -117,7 +117,7 @@ namespace RepositoryLayer.Service
         {
             try
             {
-                var result = fundooContext.NoteDetails.Where(x => x.UserId == UserId && x.IsArchive == true && x.IsTrash == false );
+                var result = fundooContext.NoteDetails.Where(x => x.UserId == UserId && x.IsArchive == true  );
                 return result;
             }
             catch (Exception)
@@ -131,7 +131,7 @@ namespace RepositoryLayer.Service
         {
             try
             {
-                var result = fundooContext.NoteDetails.Where(x => x.UserId == UserId && x.IsTrash == false);
+                var result = fundooContext.NoteDetails.Where(x => x.UserId == UserId);
                 return result;
             }
             catch (Exception)

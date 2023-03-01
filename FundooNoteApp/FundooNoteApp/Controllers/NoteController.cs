@@ -69,11 +69,11 @@ namespace FundooNoteApp.Controllers
                 var result = iNoteBl.UpdateNote(updateNotes, UserId);
                 if (result == true)
                 {
-                    return this.Ok(new { success = true, message = "Note is created Successfully", data = result });
+                    return this.Ok(new { success = true, message = "Note is updated Successfully", data = result });
                 }
                 else
                 {
-                    return this.BadRequest(new { success = false, message = "Note is created Unsuccessfully" });
+                    return this.BadRequest(new { success = false, message = "Note is updated Unsuccessfully" });
                 }
             }
             catch (System.Exception)
